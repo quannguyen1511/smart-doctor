@@ -1,0 +1,10 @@
+{
+  "__comment": "file cau hinh json",
+  "PORT": 3000,
+  "mongodb": {
+    "user": "quan1511",
+    "password": "quan1511",
+    "host": "@ds123963.mlab.com:23963",
+    "database": "smart-doctor"
+  }
+}
