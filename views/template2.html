@@ -22,135 +22,133 @@
                 <div class="panel-heading">
                     <a href="#myModal" data-toggle="modal" data-target="#myModal">{{result._source.LabelEn}}</a>
                     <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">{{ result._source.LabelEn }}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Thông tin bệnh: {{ result._source.Iao }}</p>
-                                        <p>Triệu chứng: {{ result._source.symptom }}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </div>
-                    <div class="panel-body">
-                        <p>{{ result._source.LabelVn }}.</p>
-                    </div>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">{{ result._source.LabelEn }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Thông tin bệnh: {{ result._source.Iao }}</p>
+                                    <p>Triệu chứng: {{ result._source.symptom }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+                <div class="panel-body">
+                    <p>{{ result._source.LabelVn }}.</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
 
-    <script src="https://smartdoctor.herokuapp.com/elasticsearch.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://smartdoctor.herokuapp.com/elasticsearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-    <script>
-        var client = new elasticsearch.Client({
-            hosts: ['https://site:275c5e120960e83bd2b613cf4e2fa995@ori-eu-west-1.searchly.com']
-            // hosts: ['localhost:9200']
-        });
-        var app = new Vue({
-            el: '#app',
-            data: {
-                message: 'Hello Vue!',
-                results: [],
-                query: ''
-            },
-            methods: {
-                search: function () {
-                    var body = {
-                        size: 200,
-                        from: 0,
-                        query: {
-                            common: {
-                                symptom: this.query
-                            }
+<script>
+    var client = new elasticsearch.Client({
+        hosts: ['https://site:275c5e120960e83bd2b613cf4e2fa995@ori-eu-west-1.searchly.com']
+        // hosts: ['localhost:9200']
+    });
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            results: [],
+            query: ''
+        },
+        methods: {
+            search: function () {
+                var body = {
+                    size: 200,
+                    from: 0,
+                    query: {
+                        common: {
+                            symptom: this.query
                         }
                     }
-                    client.search({ index: 'disease', body: body, type: 'disease_list' })
-                        .then(results => {
-                            console.log(`found ${results.hits.total} items in ${results.took}ms`);
-                            this.results = results.hits.hits;
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        });
                 }
-            },
-            watch: {
-                query: function () {
-                    this.search();
-                }
+                client.search({ index: 'disease', body: body, type: 'disease_list' })
+                    .then(results => {
+                        console.log(`found ${results.hits.total} items in ${results.took}ms`);
+                        this.results = results.hits.hits;
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
             }
-        })
-    </script>
-    <style>
-        .search-form .form-group {
-            float: right !important;
-            transition: all 0.35s, border-radius 0s;
-            width: 32px;
-            height: 32px;
-            background-color: #fff;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-            border-radius: 25px;
-            border: 1px solid #ccc;
+        },
+        watch: {
+            query: function () {
+                this.search();
+            }
         }
+    })
+</script>
+<style>
+    .search-form .form-group {
+        float: right !important;
+        transition: all 0.35s, border-radius 0s;
+        width: 32px;
+        height: 32px;
+        background-color: #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+    }
 
-        .search-form .form-group input.form-control {
-            padding-right: 20px;
-            border: 0 none;
-            background: transparent;
-            box-shadow: none;
-            display: block;
-        }
+    .search-form .form-group input.form-control {
+        padding-right: 20px;
+        border: 0 none;
+        background: transparent;
+        box-shadow: none;
+        display: block;
+    }
 
-        .search-form .form-group input.form-control::-webkit-input-placeholder {
-            display: none;
-        }
+    .search-form .form-group input.form-control::-webkit-input-placeholder {
+        display: none;
+    }
 
-        .search-form .form-group input.form-control:-moz-placeholder {
-            /* Firefox 18- */
-            display: none;
-        }
+    .search-form .form-group input.form-control:-moz-placeholder {
+        /* Firefox 18- */
+        display: none;
+    }
 
-        .search-form .form-group input.form-control::-moz-placeholder {
-            /* Firefox 19+ */
-            display: none;
-        }
+    .search-form .form-group input.form-control::-moz-placeholder {
+        /* Firefox 19+ */
+        display: none;
+    }
 
-        .search-form .form-group input.form-control:-ms-input-placeholder {
-            display: none;
-        }
+    .search-form .form-group input.form-control:-ms-input-placeholder {
+        display: none;
+    }
 
-        .search-form .form-group:hover,
-        .search-form .form-group.hover {
-            width: 100%;
-            border-radius: 4px 25px 25px 4px;
-        }
+    .search-form .form-group:hover,
+    .search-form .form-group.hover {
+        width: 100%;
+        border-radius: 4px 25px 25px 4px;
+    }
 
-        .search-form .form-group span.form-control-feedback {
-            position: absolute;
-            top: -1px;
-            right: -2px;
-            z-index: 2;
-            display: block;
-            width: 34px;
-            height: 34px;
-            line-height: 34px;
-            text-align: center;
-            color: #3596e0;
-            left: initial;
-            font-size: 14px;
-        }
-    </style>
+    .search-form .form-group span.form-control-feedback {
+        position: absolute;
+        top: -1px;
+        right: -2px;
+        z-index: 2;
+        display: block;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        color: #3596e0;
+        left: initial;
+        font-size: 14px;
+    }
+</style>
