@@ -59,7 +59,7 @@
         },
         methods: {
             search: function () {
-                axios.get("http://127.0.0.1:3001/search?q=" + this.query)
+                axios.get("https://smartdoctor.herokuapp.com/search?q=" + this.query)
                     .then(response => {
                         this.results = response.data;
 
