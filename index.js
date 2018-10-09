@@ -30,17 +30,10 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res){
-  res.sendFile('template.html', {
-     root: path.join( __dirname, 'views' )
-   });
-})
-
-app.get('/v2', function(req, res){
   res.sendFile('template2.html', {
      root: path.join( __dirname, 'views' )
    });
 })
-
 app.get('/search', function (req, res){
   
   let body = {

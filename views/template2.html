@@ -1,10 +1,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<head>
+    <title>Smart Doctor</title>
+</head>
 <div class="container" id="app">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1>Search Disease</h1>
+            <h1>Search Disease Ontology</h1>
         </div>
     </div>
     <div class="row">
@@ -19,30 +23,35 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3" v-for="result in results">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#myModal" data-toggle="modal" data-target="#myModal">{{result._source.LabelEn}}</a>
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">{{ result._source.LabelEn }}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Thông tin bệnh: {{ result._source.Iao }}</p>
-                                    <p>Triệu chứng: {{ result._source.symptom }}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                </div>
-                <div class="panel-body">
-                    <p>{{ result._source.LabelVn }}.</p>
+        <div class="col-md-12">
+            <div class="col-md-4" v-for="result in results">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#myModal" data-toggle="modal" data-target="#myModal">{{result._source.LabelEn}}</a>
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">{{ result._source.LabelEn }}</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>Thông tin bệnh: {{ result._source.Iao }}</p>
+                                        <p>Triệu chứng: {{ result._source.symptom }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ result._source.LabelVn }}.</p>
+                    </div>
                 </div>
             </div>
         </div>
