@@ -41,7 +41,7 @@ app.get('/search', function (req, res){
     from: 0, 
     query: {
       common: {
-        test: req.query['q']
+        symptom: req.query['q']
       }
     }
   }
